@@ -20,15 +20,15 @@ def execute_predict(path, out, gpu_id):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--source_data_path",
-                        default="/data/flamingo/recordfiles",
+                        default="/nfs/railway/京原/2020/10月/19日",
                         type=str,
                         help="source data path")
     parser.add_argument("--output_path",
-                        default="/data/huminghe/test/face_test",
+                        default="/data/huminghe/test/face_test2",
                         type=str,
                         help="output path")
     parser.add_argument("--pool_size",
-                        default=4,
+                        default=3,
                         type=int,
                         help="the max number of processes to allow at one time")
     parser.add_argument("--model_path",

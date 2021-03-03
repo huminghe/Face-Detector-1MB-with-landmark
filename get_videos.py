@@ -63,12 +63,11 @@ def remove_prefix(state_dict, prefix):
     return {f(key): value for key, value in state_dict.items()}
 
 
-def load_model(model, pretrained_path, load_to_cpu):
+def load_model(model, pretrained_path, load_to_cpu, device):
     print('Loading pretrained model from {}'.format(pretrained_path))
     if load_to_cpu:
         pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage)
     else:
-        device = torch.cuda.current_device()
         pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage.cuda(device))
     if "state_dict" in pretrained_dict.keys():
         pretrained_dict = remove_prefix(pretrained_dict['state_dict'], 'module.')
@@ -105,16 +104,16 @@ if __name__ == '__main__':
         print("Don't support network!")
         exit(0)
 
-    net = load_model(net, args.trained_model, args.cpu)
-    net.eval()
-    print('Finished loading model!')
-    print(net)
+    net = load_model(net, args.trained_model, args.cpu, args.device)
     cudnn.benchmark = True
     device = torch.device("cpu" if args.cpu else 'cuda:{}'.format(args.device))
     net = net.to(device)
+    net.eval()
+    print('Finished loading model!')
+    print(net)
 
     data_folder = args.dataset_folder
-    video_paths = list(Path(data_folder).glob('source/*司机室*.mp4'))
+    video_paths = list(Path(data_folder).glob('**/**/*司机室*.mp4'))
     if not os.path.exists(args.save_folder):
         os.makedirs(args.save_folder)
 

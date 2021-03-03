@@ -39,6 +39,7 @@ parser.add_argument('--nms_threshold', default=0.4, type=float, help='nms_thresh
 parser.add_argument('--keep_top_k', default=750, type=int, help='keep_top_k')
 parser.add_argument('--save_image', action="store_true", default=True, help='show detection results')
 parser.add_argument('--vis_thres', default=0.6, type=float, help='visualization_threshold')
+parser.add_argument('--device', default=0, type=int, help='gpu id')
 args = parser.parse_args()
 
 
@@ -109,11 +110,11 @@ if __name__ == '__main__':
     print('Finished loading model!')
     print(net)
     cudnn.benchmark = True
-    device = torch.device("cpu" if args.cpu else "cuda")
+    device = torch.device("cpu" if args.cpu else 'cuda:{}'.format(args.device))
     net = net.to(device)
 
     data_folder = args.dataset_folder
-    video_paths = list(Path(data_folder).glob('*司机室*.mp4'))
+    video_paths = list(Path(data_folder).glob('source/*司机室*.mp4'))
     if not os.path.exists(args.save_folder):
         os.makedirs(args.save_folder)
 

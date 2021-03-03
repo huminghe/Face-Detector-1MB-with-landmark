@@ -198,7 +198,6 @@ if __name__ == '__main__':
                 landms = landms[:args.keep_top_k, :]
 
                 dets = np.concatenate((dets, landms), axis=1)
-                print(dets)
 
                 for b in dets:
                     if b[4] < args.vis_thres:

@@ -28,7 +28,7 @@ if __name__ == '__main__':
                         type=str,
                         help="output path")
     parser.add_argument("--pool_size",
-                        default=3,
+                        default=5,
                         type=int,
                         help="the max number of processes to allow at one time")
     parser.add_argument("--model_path",
@@ -40,7 +40,7 @@ if __name__ == '__main__':
                         type=str,
                         help="model type")
     parser.add_argument("--gpu_id",
-                        default=2,
+                        default=0,
                         type=int,
                         help="gpu id")
 

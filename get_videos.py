@@ -33,7 +33,7 @@ parser.add_argument('--save_folder', default='./widerface_evaluate/widerface_txt
                     help='Dir to save txt results')
 parser.add_argument('--cpu', action="store_true", default=False, help='Use cpu inference')
 parser.add_argument('--dataset_folder', default='./data/widerface/val/images/', type=str, help='dataset path')
-parser.add_argument('--confidence_threshold', default=0.7, type=float, help='confidence_threshold')
+parser.add_argument('--confidence_threshold', default=0.85, type=float, help='confidence_threshold')
 parser.add_argument('--top_k', default=5000, type=int, help='top_k')
 parser.add_argument('--nms_threshold', default=0.4, type=float, help='nms_threshold')
 parser.add_argument('--keep_top_k', default=750, type=int, help='keep_top_k')
@@ -204,7 +204,7 @@ if __name__ == '__main__':
                         continue
                     text = "{:.4f}".format(b[4])
                     prop = abs(b[5] - b[7]) / abs(b[0] - b[2])
-                    if abs(b[5] - b[7]) >= 8 and prop >= 0.35 and abs(b[1] - b[3]) <= 60 and 300 >= b[0] >= 50:
+                    if abs(b[5] - b[7]) >= 10 and prop >= 0.42 and abs(b[1] - b[3]) <= 60 and 300 >= b[0] >= 70:
                         b = list(map(int, b))
                         cv2.rectangle(img_raw, (b[0], b[1]), (b[2], b[3]), (0, 0, 255), 2)
                         cx = b[0]
